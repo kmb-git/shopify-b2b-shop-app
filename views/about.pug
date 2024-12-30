@@ -1,0 +1,34 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src="/js/script.js") // Corrected indentation
+
+  body
+    header
+      h1.class-about Discount Details
+    div.form-container
+      div.form-fields
+        div.form-row
+          div.column
+            label.form-label(for="select1") Products
+            select.form-select(id="select1" name="select1")
+              option(value="option1") Option 1
+              option(value="option2") Option 2
+              option(value="option3") Option 3
+          div.column
+            label.form-label(for="select2") Discount Type
+            select.form-select(id="select2" name="select2")
+              option(value="percentage") Percentage
+              option(value="amount") Amount
+              option(value="fixed amount") Fixed Amount
+          div.column
+            label.form-label(for="numberField") Discount
+            input.form-input(type="number" id="numberField" name="numberField" placeholder="Enter a number")
+    footer
+      div.row
+        button.submit-button(type="button" id="add-more-button") Add More
+        button.submit-button(type="button" id="submit-button") Submit

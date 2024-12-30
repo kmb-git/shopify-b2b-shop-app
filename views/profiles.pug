@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    title Profiles List
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css")
+  body
+    .container.mt-5
+      h1.text-center Profiles List
+      table.table.table-striped.table-bordered.mt-4
+        thead
+          tr
+            th First Name
+            th Last Name
+            th Email
+            th State
+            th Country
+            th Account Status
+            th Actions
+        tbody
+          each profile in profiles
+            tr
+              td= profile.first_name
+              td= profile.last_name
+              td= profile.email
+              td= profile.state
+              td= profile.country
+              td
+                if profile.account_status === "active"
+                  span.badge.bg-success Active
+                else if profile.account_status === "inactive"
+                  span.badge.bg-warning Inactive
+                else
+                  span.badge.bg-danger Suspended
+              td
+                form(action=`/${profile._id}/approve` method="POST" style="display:inline-block")
+                  button.btn.btn-success.btn-sm(type="submit") Approve
+                form(action=`/${profile._id}/delete` method="POST" style="display:inline-block")
+                  button.btn.btn-danger.btn-sm(type="submit") Delete
