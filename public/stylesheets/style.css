@@ -132,13 +132,131 @@ footer {
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%;
+  width: 91%;
   margin-top: 6px;
   margin-bottom: 25px;
 }
 
+.form-row.error {
+  /* border: 2px solid red; */
+  background-color: #ffe6e6;
+}
+
+/* List Data */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* Style the header */
+header h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+/* Table Styling */
+table.table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table.table th,
+table.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+table.table th {
+  background-color: #4CAF50;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+table.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* No Data Message */
+p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 20px;
+}
 
 
+/* Button Styles  List*/
+.containers
+ {
+  max-width: 1200px; /* Set a maximum width for the container */
+  margin: 20px auto; /* Center the container with top and bottom margins */
+  background-color: #f9f9f9; /* Optional background for better visibility */
+  border-radius: 8px; /* Optional rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+}
 
+/* Table Styling */
+table.table {
+  border-collapse: collapse;
+  width: 100%; /* Stretch the table to fill the container */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center-align the table content */
+}
 
+table.table th,
+table.table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
 
+/* Actions Column */
+table.table th:nth-child(5), /* Target the Actions column header */
+table.table td:nth-child(5) /* Target the Actions column cells */ {
+  width: 1%; /* Shrink to fit content */
+  white-space: nowrap; /* Prevent wrapping of buttons */
+  text-align: center; /* Center align the buttons */
+}
+
+/* Buttons Styling */
+button {
+  padding: 8px 12px;
+  margin: 0 5px; /* Adds gap between buttons */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Edit Button */
+.btn-edit {
+  background-color: rgb(18, 119, 5); /* Green color */
+  color: white;
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: #e82012; /* Red color */
+  color: white;
+}
+
+/* Button Hover Effects */
+button:hover {
+  opacity: 0.9; /* Slight opacity on hover */
+}
+
+/* Table cell alignment */
+td button {
+  display: inline-block; /* Ensures proper spacing between buttons */
+}

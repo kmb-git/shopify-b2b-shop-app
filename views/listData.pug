@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title List Data
+    link(rel="stylesheet", href="/stylesheets/style.css")
+
+  body
+    header
+      h1 List Data
+
+    div.containers
+      if data.length > 0
+        table.table
+          thead
+            tr
+              th Product ID
+              th Discount Type
+              th Discount Value
+              th Is Variant
+              th Actions
+          tbody
+            each item in data
+              tr(data-id=item._id)
+                td 
+                  each product in products
+                    if(item.isVariant)
+
+                      each variant in product.variants
+                        if(variant.id ==item.product )
+                          span=product.title + " -- " +variant.title + " -- " +  variant.sku
+                        
+
+                    
+                    else
+                      if(product.id ==item.product )
+                        span=product.title
+                      
+                    
+                  
+
+                  
+                  
+                td= item.discountType
+                td= item.discount
+                td= item.isVariant ? "Yes" : "No"
+                td
+                  button.btn-edit(type="button") Edit
+                  button.btn-delete(type="button") Delete
+      else
+        p No data available to display.
+
+    script(src="/js/list.js")

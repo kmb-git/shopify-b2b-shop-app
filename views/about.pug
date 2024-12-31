@@ -15,10 +15,30 @@ html(lang="en")
         div.form-row
           div.column
             label.form-label(for="select1") Products
-            select.form-select(id="select1" name="select1")
-              option(value="option1") Option 1
-              option(value="option2") Option 2
-              option(value="option3") Option 3
+            select.form-select(name="products-dropdown" id="products-dropdown")
+                option(value="" disabled selected) Select a Product
+                option(value="all") All Products
+                each product in products
+                    optgroup(label=product.title)
+                    option(value=product.id data-product="true")= `${product.title} All Variants`
+                    each variant in product.variants
+                        option(value=variant.id)= `${variant.title} - $${variant.price}`
+
+            script.
+                // Handle dropdown selection
+                document.getElementById('products-dropdown').addEventListener('change', function() {
+                    const selectedValue = this.value;
+                    
+                    if(this.querySelectorAll("option")[this.selectedIndex].dataset.product == "true"){
+
+                        console.log('Selected Product ID:', selectedValue);
+
+                    }
+                    else{
+
+                        console.log('Selected Variant ID:', selectedValue);
+                    }
+                });
           div.column
             label.form-label(for="select2") Discount Type
             select.form-select(id="select2" name="select2")

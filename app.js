@@ -9,6 +9,8 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var profileRouter = require("./routes/customProfileRoutes");
 var profileViewRouter = require("./routes/customRoutes");
+var discountRouter = require('./routes/discountRoutes');
+var listRouter = require('./routes/listRoutes'); // Handles list page rendering
 
 var app = express();
 databaseConfig();
@@ -27,6 +29,8 @@ app.use("/", indexRouter);
 app.use("/customer", profileRouter);
 app.use("/profile", profileViewRouter);
 app.use("/users", usersRouter);
+app.use('/discounts', discountRouter);
+app.use('/list', listRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
