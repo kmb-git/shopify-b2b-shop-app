@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Sign In
+    link(rel="stylesheet", href="/stylesheets/style.css")
+
+  body.signin-page
+    div.signin-container
+      form(action="/signin" method="POST" class="signin-form")
+        h2.text-center Sign In
+
+        // Show error message if exists
+        if error
+          div.error-message #{error}
+
+        div.form-group
+          label(for="email") Email:
+          input(type="email" name="email" id="email" placeholder="Enter your email" required)
+        div.form-group
+          label(for="password") Password:
+          input(type="password" name="password" id="password" placeholder="Enter your password" required)
+        div.form-group
+          button(type="submit" class="btn") Sign In
+
+      p.text-center Don't have an account? 
+        a(href="/signup") Sign Up
+
+    footer.signin-footer

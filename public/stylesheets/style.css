@@ -83,7 +83,6 @@ body {
 footer {
   display: flex;
   justify-content: center;
-  background-color: #F8F8F8;
   margin-top: 15px;
   margin-bottom: 50px;
 }
@@ -199,10 +198,10 @@ p {
 .containers
  {
   max-width: 1200px; /* Set a maximum width for the container */
-  margin: 20px auto; /* Center the container with top and bottom margins */
-  background-color: #f9f9f9; /* Optional background for better visibility */
-  border-radius: 8px; /* Optional rounded corners */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  margin: 20px auto; 
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 /* Table Styling */
@@ -232,7 +231,7 @@ table.table td:nth-child(5) /* Target the Actions column cells */ {
 /* Buttons Styling */
 button {
   padding: 8px 12px;
-  margin: 0 5px; /* Adds gap between buttons */
+  margin: 0 0px; /* Adds gap between buttons */
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -247,8 +246,9 @@ button {
 
 /* Delete Button */
 .btn-delete {
-  background-color: #e82012; /* Red color */
+  background-color: #e82012;
   color: white;
+  margin-left: 10px;
 }
 
 /* Button Hover Effects */
@@ -259,4 +259,246 @@ button:hover {
 /* Table cell alignment */
 td button {
   display: inline-block; /* Ensures proper spacing between buttons */
+}
+
+
+/* Signin */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #F0F4F8; /* Uniform background for all pages */
+}
+
+/* Scoped Styles for Signup Page */
+body.signup-page {
+  background-color: #F0F4F8; /* Page-specific background */
+}
+
+/* Signup Container */
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px); /* Adjust height to include footer */
+  padding: 20px;
+}
+
+.sign-up-form {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Form Heading Styles */
+.sign-up-form h2 {
+  font-size: 1.8rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Form Group Styles */
+.sign-up-form .form-group {
+  margin-bottom: 25px;
+}
+
+.sign-up-form label {
+  display: flex;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.sign-up-form input[type="text"],
+.sign-up-form input[type="email"],
+.sign-up-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.sign-up-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sign-up-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Text Below Form */
+.text-center {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.text-center a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Styles */
+footer.signup-footer {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #3498db; /* Footer background */
+  color: white;
+}
+
+footer.signup-footer p {
+  margin: 0;
+}
+
+footer.signup-footer a {
+  color: white;
+  text-decoration: underline;
+}
+
+footer.signup-footer a:hover {
+  text-decoration: none;
+}
+
+/*  Signin Page*/
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #F0F4F8;
+}
+
+/* Scoped Styles for Sign In Page */
+body.signin-page {
+  background-color: #F0F4F8;
+}
+
+/* Sign In Container */
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px); /* Adjust height to include footer */
+  padding: 20px;
+}
+
+.signin-form {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Form Heading Styles */
+.signin-form h2 {
+  font-size: 1.8rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Form Group Styles */
+.signin-form .form-group {
+  margin-bottom: 30px;
+}
+
+.signin-form label {
+  display: flex;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.signin-form input[type="email"],
+.signin-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.signin-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signin-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Text Below Form */
+.text-center {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.text-center a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+
+/* Logout Button */
+.logout-form {
+  margin: 0;
+}
+
+.logout-button {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #e74c3c; /* Red color for error */
+  background-color: #fbeaea; /* Light red background */
+  padding: 10px;
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
 }

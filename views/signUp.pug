@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Sign Up
+    link(rel="stylesheet", href="/stylesheets/style.css")
+
+  body.signup-page
+    div.sign-up-container
+      form(action="/signup" method="POST" class="sign-up-form")
+        h2.text-center Sign Up
+        div.form-group
+          label(for="name") Name:
+          input(type="text" name="name" id="name" placeholder="Enter your name"  required)
+        div.form-group
+          label(for="email") Email:
+          input(type="email" name="email" id="email" placeholder="Enter your email"  required)
+        div.form-group
+          label(for="password") Password:
+          input(type="password" name="password" id="password" placeholder="Enter your password"  required minlength="6")
+        div.form-group
+          button(type="submit") Sign Up
+      p.text-center Already have an account? 
+        a(href="/signin") Sign In
+
+    footer

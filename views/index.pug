@@ -1,24 +1,23 @@
 doctype html
 html(lang="en")
-head
+  head
     meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title #{title}
     link(rel="stylesheet", href="/stylesheets/style.css")
-body
-header
-      h1.class-home Price Title
-nav
+  body
+    header
+      div.header-container
+        h1.class-home Price Title
+        form(action="/logout" method="POST" class="logout-form")
+          button(type="submit" class="btn logout-button") Logout
+    nav
       div(class="button-container")
         form(action="/" method="get")
           button(type="submit" class="btn btn-csv") Upload CSV
         form(action="/about" method="get")
           button(type="submit" class="btn btn-manual") Upload Manually
-main
+    main
       div(class="description-box")
         h2 Description
         p Use the buttons above to either upload a CSV file or navigate to the manual upload page. This interface is designed to simplify data management.
-
-
-
-

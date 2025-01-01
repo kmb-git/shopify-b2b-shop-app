@@ -47,3 +47,37 @@ exports.fetchAllProducts = async () => {
     throw error;
   }
 };
+
+exports.generateRules = async () => {
+  const endpoint = `https://${shopName}/admin/api/2023-10/price_rules.json`;
+  const data = {
+    price_rule: {
+      title: "Tag-Based Discount",
+      target_type: "line_item",
+      target_selection: "entitled",
+      allocation_method: "across",
+      value_type: "percentage",
+      value: "-10.0", // 10% discount
+      customer_selection: "all",
+      starts_at: new Date().toISOString(),
+      entitled_product_ids: [123456789], // Replace with actual product IDs
+      entitled_variant_ids: [987654321], // Replace with actual variant IDs
+      prerequisite_product_ids: [],
+      prerequisite_variant_ids: [],
+    },
+  };
+
+  try {
+    const response = await axios.post(endpoint, data, {
+      headers: {
+        "X-Shopify-Access-Token": accessToken,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("Discount rule created successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating discount rule:", error.response.data);
+    return error;
+  }
+};
