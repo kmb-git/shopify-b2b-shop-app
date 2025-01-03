@@ -18,6 +18,7 @@ var discountRoutes = require("./routes/discountRoutes"); // Discount-specific ro
 var listRouter = require("./routes/listRoutes"); // Handles list page rendering
 var authRouter = require("./routes/auth"); // Authentication routes
 var protectedRouter = require("./routes/protected"); // Other protected routes
+var priceRouter = require("./routes/priceRules"); // Other protected routes
 
 var app = express();
 databaseConfig(); // Initialize database connection
@@ -50,13 +51,15 @@ app.use(
 app.use("/", authRouter); // Authentication routes
 
 // Protected routes (Authentication required)
-app.use("/", ensureAuthenticated, indexRouter);
+
+app.use("/shopify", priceRouter);
+app.use("/", indexRouter);
 app.use("/customer", ensureAuthenticated, profileRouter);
-app.use("/profile", ensureAuthenticated, profileViewRouter);
+app.use("/profile", profileViewRouter);
 app.use("/users", ensureAuthenticated, usersRouter);
-app.use("/discounts", ensureAuthenticated, discountRoutes); // Discount routes
+app.use("/discounts", discountRoutes); // Discount routes
 app.use("/list", ensureAuthenticated, listRouter);
-app.use("/", ensureAuthenticated, protectedRouter); // Other protected routes
+app.use("/", protectedRouter); // Other protected routes
 
 // Handle 404 errors
 app.use(function (req, res, next) {

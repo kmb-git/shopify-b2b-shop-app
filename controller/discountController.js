@@ -23,18 +23,18 @@ const discountController = {
       //       entitled_product_ids: [params.product_id_list], // Replace with actual product IDs
       //       entitled_variant_ids: [params.product_variant_list], // Replace with actual variant IDs
 
-      for (data of formData) {
-        console.log(data);
-        const rulesParams = {};
-        rulesParams.title =
-          data.product + data.isVariant
-            ? "-- Variant Discount"
-            : "-- Product Discount";
+      // for (data of formData) {
+      //   console.log(data);
+      //   const rulesParams = {};
+      //   rulesParams.title =
+      //     data.product + data.isVariant
+      //       ? "-- Variant Discount"
+      //       : "-- Product Discount";
 
-        // rulesParams.value_type = (data.discountType == "amount") ?
+      //   // rulesParams.value_type = (data.discountType == "amount") ?
 
-        debugger;
-      }
+      //   debugger;
+      // }
 
       // Save data to the database
       const savedData = await Discount.insertMany(formData);

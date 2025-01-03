@@ -3,6 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const addMoreButton = document.getElementById("add-more-button");
   const submitButton = document.getElementById("submit-button");
 
+  function generateRandomString(length) {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return result;
+  }
+
   // Function to clone and append a new form row
   const cloneFormRow = () => {
     const firstFormRow = document.querySelector(".form-row");
@@ -83,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let isValid = true;
 
     // Collect data from each form row
-    formRows.forEach((row) => {
+    formRows.forEach(async (row, index) => {
       const product = row.querySelector(
         'select[name="products-dropdown"]'
       )?.value;
@@ -110,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         )[selectedIndex];
 
         let productTitle = selectedOption.dataset.title;
-        let variantTitle = selectedOption.dataset.variant;
+        let variantTitle = selectedOption.dataset.product;
 
         let params = {};
         let ruleTitle = productTitle;
@@ -118,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ruleTitle = ruleTitle + " -- " + variantTitle;
         }
 
+        params["title"] = ruleTitle;
         params["type"] =
           discountType != "percentage" ? "fixed_amount" : "percentage";
 
@@ -140,9 +153,37 @@ document.addEventListener("DOMContentLoaded", () => {
           params["product_id_list"] = [];
           params["product_variant_list"] = [product];
         }
-        debugger;
 
-        formData.push({ product, discountType, discount, isVariant });
+        let code = generateRandomString(8);
+
+        params["code"] = code;
+
+        // debugger;
+        setTimeout(() => {
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          const raw = JSON.stringify(params);
+
+          const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+
+          fetch("/shopify/create-price-rule", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.error(error));
+        }, 1000 * index);
+
+        formData.push({
+          product,
+          discountCode: code,
+          discountType,
+          discount,
+          isVariant,
+        });
       }
     });
 

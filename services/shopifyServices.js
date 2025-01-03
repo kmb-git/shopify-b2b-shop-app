@@ -105,26 +105,20 @@ exports.createPriceRule = async (params) => {
         target_selection: "entitled",
         allocation_method: "across",
         value_type: params.type,
-        value: params.value, // 15% Discount
+        value: "-" + params.value, // 15% Discount
         customer_selection: "prerequisite",
-        prerequisite_customer_segments: [
-          {
-            id: "wholesale_customers",
-            name: "WHOLESALE Customers",
-            conditions: [
-              {
-                field: "customer_tag",
-                relation: "equals",
-                value: "WHOLESALE",
-              },
-            ],
-          },
-        ],
-        entitled_product_ids: [params.product_id_list], // Replace with actual product IDs
-        entitled_variant_ids: [params.product_variant_list], // Replace with actual variant IDs
+        customer_segment_prerequisite_ids: ["1095860126033"],
+        // prerequisite_customer_segments: ["1032241742161"],
+        // prerequisite_customer_ids: [8512205259089],
+        entitled_product_ids: params.product_id_list, // Replace with actual product IDs
+        entitled_variant_ids: params.product_variant_list, // Replace with actual variant IDs
         starts_at: new Date().toISOString(),
       },
     };
+    // console.log(priceRuleData);
+
+    // const priceRuleGet = await shopifyAxios.get("/price_rules.json");
+    // console.log(priceRuleGet);
 
     const priceRuleResponse = await shopifyAxios.post(
       "/price_rules.json",
