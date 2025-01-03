@@ -22,7 +22,7 @@ html(lang="en")
             label.form-label(for="select1") Products
             select.form-select(name="products-dropdown" id="products-dropdown")
                 option(value="" disabled selected) Select a Product
-                option(value="all" data-title="all" data-product="true") All Products
+                //- option(value="all" data-title="all" data-product="true") All Products
                 each product in products
                     //- optgroup(label=product.title)
                     option(value=product.id data-title=product.title data-variant=product.title data-product="true" data-price=product.variants[0].price)= `${product.title} All Variants`
