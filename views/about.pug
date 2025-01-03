@@ -9,7 +9,12 @@ html(lang="en")
 
   body
     header
+      div.button-container
+        a.back-button(href="/") Back
+        form(action="/logout" method="POST" class="logout-form")
+          button(type="submit" class="btn logout-buttons") Logout
       h1.class-about Discount Details
+
     div.form-container
       div.form-fields
         div.form-row
@@ -20,34 +25,55 @@ html(lang="en")
                 option(value="all") All Products
                 each product in products
                     optgroup(label=product.title)
-                    option(value=product.id data-product="true")= `${product.title} All Variants`
+                    option(value=product.id data-title=product.title data-variant=product.title data-product="true" data-price=product.variants[0].price)= `${product.title} All Variants`
                     each variant in product.variants
-                        option(value=variant.id)= `${variant.title} - $${variant.price}`
+                        option(value=variant.id data-product=product.title data-title=variant.title data-price=variant.price)= `${variant.title} - $${variant.price}`
 
             script.
                 // Handle dropdown selection
                 document.getElementById('products-dropdown').addEventListener('change', function() {
                     const selectedValue = this.value;
-                    
-                    if(this.querySelectorAll("option")[this.selectedIndex].dataset.product == "true"){
+                    console.log(this.querySelectorAll("option")[this.selectedIndex].dataset.price);
+                    let price = this.querySelectorAll("option")[this.selectedIndex].dataset.price;
+                    maxValue = price;
 
+                    this.closest('.form-row').querySelector("[name='numberField']").max = price;
+
+                    if(this.querySelectorAll("option")[this.selectedIndex].dataset.product == "true") {
                         console.log('Selected Product ID:', selectedValue);
-
-                    }
-                    else{
-
+                    } else {
                         console.log('Selected Variant ID:', selectedValue);
                     }
                 });
+                
           div.column
             label.form-label(for="select2") Discount Type
             select.form-select(id="select2" name="select2")
               option(value="percentage") Percentage
-              option(value="amount") Amount
-              option(value="fixed amount") Fixed Amount
+              option(value="amount") Amount Off
+              option(value="fixed amount") Fixed Amount of Variant
           div.column
             label.form-label(for="numberField") Discount
             input.form-input(type="number" id="numberField" name="numberField" placeholder="Enter a number")
+            script.
+              document.getElementById('numberField').addEventListener('change', function() {
+                    const selectedValue = this.value;
+                    let type = this.closest('.form-row').querySelector("#select2").value;
+                    let priceSelect = this.closest('.form-row').querySelector("#products-dropdown")
+
+                    let price = priceSelect.querySelectorAll("option")[priceSelect.selectedIndex].dataset.price;
+                    
+                    if(type == "percentage"){
+                      if(selectedValue > 100){
+                        this.value = 100;
+                      }
+                    } else {
+                      if(selectedValue > price){
+                        this.value = price;
+                      }
+                    }
+                });
+
     footer
       div.row
         button.submit-button(type="button" id="add-more-button") Add More

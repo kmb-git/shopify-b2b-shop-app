@@ -37,10 +37,42 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         console.log("Selected Variant ID:", selectedValue);
       }
+
+      const price =
+        event.target.options[event.target.selectedIndex]?.dataset.price;
+      const numberField = event.target
+        .closest(".form-row")
+        .querySelector('input[name="numberField"]');
+      numberField.max = price; // Set max value for the discount field
     }
 
     if (event.target.name === "select2") {
       console.log("Discount type changed to:", event.target.value);
+    }
+  });
+
+  formFieldsContainer.addEventListener("input", (event) => {
+    if (event.target.name === "numberField") {
+      const selectedValue = event.target.value;
+      const type = event.target
+        .closest(".form-row")
+        .querySelector("#select2").value;
+      const priceSelect = event.target
+        .closest(".form-row")
+        .querySelector("#products-dropdown");
+
+      const price =
+        priceSelect.options[priceSelect.selectedIndex]?.dataset.price;
+
+      if (type === "percentage") {
+        if (selectedValue > 100) {
+          event.target.value = 100;
+        }
+      } else {
+        if (selectedValue > price) {
+          event.target.value = price;
+        }
+      }
     }
   });
 
@@ -51,20 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let isValid = true;
 
     // Collect data from each form row
-    formRows.forEach((row, index) => {
-      const rowElements = row.querySelectorAll(
-        'select[name="products-dropdown"] option'
-      );
-
-      const selectedIndex = row.querySelector(
-        'select[name="products-dropdown"]'
-      ).selectedIndex;
-
+    formRows.forEach((row) => {
       const product = row.querySelector(
         'select[name="products-dropdown"]'
-      ).value;
-      const discountType = row.querySelector('select[name="select2"]').value;
-      const discount = row.querySelector('input[name="numberField"]').value;
+      )?.value;
+      const discountType = row.querySelector('select[name="select2"]')?.value;
+      const discount = row.querySelector('input[name="numberField"]')?.value;
 
       // Validate the fields
       if (!product || !discountType || !discount) {
@@ -73,10 +97,51 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         row.classList.remove("error"); // Remove error highlight if corrected
 
-        isVariant = true;
-        if (rowElements[selectedIndex].dataset.product == "true") {
-          isVariant = false;
+        const isVariant =
+          row.querySelector('select[name="products-dropdown"]')
+            .selectedOptions[0]?.dataset.product === "true"
+            ? false
+            : true;
+        const selectedIndex = row.querySelector(
+          'select[name="products-dropdown"]'
+        ).selectedIndex;
+        let selectedOption = row.querySelectorAll(
+          'select[name="products-dropdown"] option'
+        )[selectedIndex];
+
+        let productTitle = selectedOption.dataset.title;
+        let variantTitle = selectedOption.dataset.variant;
+
+        let params = {};
+        let ruleTitle = productTitle;
+        if (productTitle != variantTitle) {
+          ruleTitle = ruleTitle + " -- " + variantTitle;
         }
+
+        params["type"] =
+          discountType != "percentage" ? "fixed_amount" : "percentage";
+
+        if (discountType == "percentage") {
+          params["value"] = discount;
+        } else if (discountType == "amount") {
+          params["value"] = discount;
+        } else if (discountType == "fixed amount") {
+          let amount = selectedOption.dataset.price;
+
+          let fixed = discount;
+
+          params["value"] = amount - discount;
+        }
+
+        if (!isVariant) {
+          params["product_variant_list"] = [];
+          params["product_id_list"] = [product];
+        } else {
+          params["product_id_list"] = [];
+          params["product_variant_list"] = [product];
+        }
+        debugger;
+
         formData.push({ product, discountType, discount, isVariant });
       }
     });
@@ -87,21 +152,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Send JSON data to the server
-    fetch('/discounts/save-discounts', {
-      method: 'POST',
+    fetch("/discounts/save-discounts", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData), // JSON payload
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Success:', data);
+        console.log("Success:", data);
         alert(data.message);
       })
       .catch((error) => {
-        console.error('Error:', error);
-        alert('Failed to save data.');
+        console.error("Error:", error);
+        alert("Failed to save data.");
       });
   });
 });

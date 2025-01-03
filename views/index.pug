@@ -6,18 +6,17 @@ html(lang="en")
     title #{title}
     link(rel="stylesheet", href="/stylesheets/style.css")
   body
-    header
-      div.header-container
-        h1.class-home Price Title
-        form(action="/logout" method="POST" class="logout-form")
-          button(type="submit" class="btn logout-button") Logout
+    header.header-container
+      h1.class-home Price Title
+      form(action="/logout" method="POST" class="logout-form")
+        button(type="submit" class="btn logout-button") Logout
     nav
-      div(class="button-container")
+      div.button-containers
         form(action="/" method="get")
           button(type="submit" class="btn btn-csv") Upload CSV
         form(action="/about" method="get")
           button(type="submit" class="btn btn-manual") Upload Manually
     main
-      div(class="description-box")
+      div.description-box
         h2 Description
         p Use the buttons above to either upload a CSV file or navigate to the manual upload page. This interface is designed to simplify data management.

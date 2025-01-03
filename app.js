@@ -9,19 +9,20 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const ensureAuthenticated = require("./middleware/authMiddleware"); // Import authentication middleware
 
+// Import route handlers
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var profileRouter = require("./routes/customProfileRoutes");
 var profileViewRouter = require("./routes/customRoutes");
-var discountRouter = require('./routes/discountRoutes');
-var listRouter = require('./routes/listRoutes'); // Handles list page rendering
-var authRouter = require("./routes/auth"); // Import the auth routes
-var protectedRouter = require("./routes/protected"); // Import protected routes
+var discountRoutes = require("./routes/discountRoutes"); // Discount-specific routes
+var listRouter = require("./routes/listRoutes"); // Handles list page rendering
+var authRouter = require("./routes/auth"); // Authentication routes
+var protectedRouter = require("./routes/protected"); // Other protected routes
 
 var app = express();
-databaseConfig();
+databaseConfig(); // Initialize database connection
 
-// view engine setup
+// Set up view engine
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
@@ -39,36 +40,36 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI, // Use MongoDB URI from environment variables
+      mongoUrl: process.env.MONGODB_URI, // MongoDB connection string
     }),
     cookie: { maxAge: 1000 * 60 * 60 }, // 1 hour
   })
 );
 
-// Public routes
+// Public routes (No authentication required)
 app.use("/", authRouter); // Authentication routes
 
-// Protected routes (requires authentication)
+// Protected routes (Authentication required)
 app.use("/", ensureAuthenticated, indexRouter);
 app.use("/customer", ensureAuthenticated, profileRouter);
 app.use("/profile", ensureAuthenticated, profileViewRouter);
 app.use("/users", ensureAuthenticated, usersRouter);
-app.use("/discounts", ensureAuthenticated, discountRouter);
+app.use("/discounts", ensureAuthenticated, discountRoutes); // Discount routes
 app.use("/list", ensureAuthenticated, listRouter);
-app.use("/", ensureAuthenticated, protectedRouter); // Protected routes
+app.use("/", ensureAuthenticated, protectedRouter); // Other protected routes
 
-// catch 404 and forward to error handler
+// Handle 404 errors
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+  // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
+  // Render the error page
   res.status(err.status || 500);
   res.render("error");
 });

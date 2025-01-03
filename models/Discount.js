@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Define schema for the discount form data
 const DiscountSchema = new mongoose.Schema({
@@ -8,12 +8,16 @@ const DiscountSchema = new mongoose.Schema({
   },
   discountType: {
     type: String,
-    enum: ['percentage', 'amount', 'fixed amount'], // Allowed values
+    enum: ["percentage", "amount", "fixed amount"], // Allowed values
     required: true,
   },
   discount: {
     type: Number, // Discount value
     required: true,
+  },
+  discountCode: {
+    type: String, // Discount value
+    required: false,
   },
   isVariant: {
     type: Boolean, // Whether it is a variant
@@ -22,4 +26,4 @@ const DiscountSchema = new mongoose.Schema({
 });
 
 // Export the model
-module.exports = mongoose.model('Discount', DiscountSchema);
+module.exports = mongoose.model("Discount", DiscountSchema);
