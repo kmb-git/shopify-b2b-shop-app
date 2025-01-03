@@ -90,6 +90,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  function calculateDiscountPercentageFromAmount(
+    originalPrice,
+    discountAmount
+  ) {
+    const discountPercentage = (discountAmount / originalPrice) * 100;
+    return discountPercentage.toFixed(2); // Returns the percentage rounded to two decimal places
+  }
+  function calculateDiscountPercentage(originalPrice, discountedPrice) {
+    const discountPercentage =
+      ((originalPrice - discountedPrice) / originalPrice) * 100;
+    return discountPercentage.toFixed(2); // Returns the percentage rounded to two decimal places
+  }
   // Submit Button Functionality
   submitButton.addEventListener("click", () => {
     const formRows = document.querySelectorAll(".form-row");
@@ -136,19 +148,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         params["title"] = ruleTitle;
-        params["type"] =
-          discountType != "percentage" ? "fixed_amount" : "percentage";
+        params["type"] = "percentage";
 
         if (discountType == "percentage") {
           params["value"] = discount;
         } else if (discountType == "amount") {
-          params["value"] = discount;
+          let discountInpercantge = calculateDiscountPercentageFromAmount(
+            selectedOption.dataset.price,
+            discount
+          );
+
+          params["value"] = discountInpercantge;
         } else if (discountType == "fixed amount") {
           let amount = selectedOption.dataset.price;
 
           let fixed = discount;
 
-          params["value"] = amount - discount;
+          let discountInpercantge = calculateDiscountPercentage(
+            amount,
+            discount
+          );
+
+          params["value"] = discountInpercantge;
         }
 
         if (!isVariant) {
@@ -167,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         params["code"] = code;
 
-        // debugger;
+        debugger;
         setTimeout(() => {
           const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
