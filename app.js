@@ -47,6 +47,7 @@ app.use(
   })
 );
 
+//CDEEE
 // Public routes (No authentication required)
 app.use("/", authRouter); // Authentication routes
 
