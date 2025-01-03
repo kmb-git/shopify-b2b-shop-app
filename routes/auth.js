@@ -4,9 +4,9 @@ const router = express.Router();
 const User = require("../models/User"); // Assuming you have a User model
 
 // Render Signup Page
-router.get("/signup", (req, res) => {
-  res.render("signUp", { title: "Sign Up" });
-});
+// router.get("/signup", (req, res) => {
+//   res.render("signUp", { title: "Sign Up" });
+// });
 
 // Render Signin Page
 router.get("/signin", (req, res) => {
@@ -14,36 +14,36 @@ router.get("/signin", (req, res) => {
 });
 
 // Handle Signup Form Submission
-router.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body;
+// router.post("/signup", async (req, res) => {
+//   const { name, email, password } = req.body;
 
-  try {
-    // Check if the user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).render("signUp", {
-        title: "Sign Up",
-        error: "User already exists. Please sign in.",
-      });
-    }
+//   try {
+//     // Check if the user already exists
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(400).render("signUp", {
+//         title: "Sign Up",
+//         error: "User already exists. Please sign in.",
+//       });
+//     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+//     // Hash the password
+//     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Save the user to the database
-    const newUser = new User({ name, email, password: hashedPassword });
-    await newUser.save();
+//     // Save the user to the database
+//     const newUser = new User({ name, email, password: hashedPassword });
+//     await newUser.save();
 
-    // Redirect to signin page
-    res.redirect("/signin");
-  } catch (error) {
-    console.error("Error during signup:", error.message);
-    res.status(500).render("signup", {
-      title: "Sign Up",
-      error: "An unexpected error occurred. Please try again later.",
-    });
-  }
-});
+//     // Redirect to signin page
+//     res.redirect("/signin");
+//   } catch (error) {
+//     console.error("Error during signup:", error.message);
+//     res.status(500).render("signup", {
+//       title: "Sign Up",
+//       error: "An unexpected error occurred. Please try again later.",
+//     });
+//   }
+// });
 
 // Handle Signin Form Submission
 router.post("/signin", async (req, res) => {
