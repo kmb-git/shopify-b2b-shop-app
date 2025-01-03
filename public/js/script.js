@@ -213,6 +213,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((data) => {
         console.log("Success:", data);
         alert(data.message);
+        setTimeout(() => {
+          location.href = "/list/list";
+        });
       })
       .catch((error) => {
         console.error("Error:", error);
