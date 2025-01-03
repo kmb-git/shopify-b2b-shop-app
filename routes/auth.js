@@ -5,12 +5,12 @@ const User = require("../models/User"); // Assuming you have a User model
 
 // Render Signup Page
 router.get("/signup", (req, res) => {
-  res.render("signup", { title: "Sign Up" });
+  res.render("signUp", { title: "Sign Up" });
 });
 
 // Render Signin Page
 router.get("/signin", (req, res) => {
-  res.render("signin", { title: "Sign In" });
+  res.render("signIn", { title: "Sign In" });
 });
 
 // Handle Signup Form Submission
@@ -21,7 +21,7 @@ router.post("/signup", async (req, res) => {
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).render("signup", {
+      return res.status(400).render("signUp", {
         title: "Sign Up",
         error: "User already exists. Please sign in.",
       });
