@@ -19,6 +19,7 @@ var listRouter = require("./routes/listRoutes"); // Handles list page rendering
 var authRouter = require("./routes/auth"); // Authentication routes
 var protectedRouter = require("./routes/protected"); // Other protected routes
 var priceRouter = require("./routes/priceRules"); // Other protected routes
+var cors = require("cors");
 
 var app = express();
 databaseConfig(); // Initialize database connection
@@ -34,6 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(cors());
 // Session management configuration
 app.use(
   session({
