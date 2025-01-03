@@ -7,15 +7,19 @@ html(lang="en")
     link(rel="stylesheet", href="/stylesheets/style.css")
   body
     header.header-container
-      h1.class-home Price Title
+      h1.class-home Price Tier
       form(action="/logout" method="POST" class="logout-form")
         button(type="submit" class="btn logout-button") Logout
     nav
       div.button-containers
-        form(action="/" method="get")
-          button(type="submit" class="btn btn-csv") Upload CSV
-        form(action="/about" method="get")
-          button(type="submit" class="btn btn-manual") Upload Manually
+        form(action="/list/list" method="get")
+          button(type="submit" class="btn btn-csv") Ruleset List 
+        form(action="/profile" method="get")
+          button(type="submit" class="btn btn-manual") Customer Profiles List 
+           form(action="/home" method="get")
+          button(type="submit" class="btn btn-csv" disabled) Upload CSV
+        form(action="/home/rules/create" method="get")
+          button(type="submit" class="btn btn-manual") Upload Prices Manually
     main
       div.description-box
         h2 Description

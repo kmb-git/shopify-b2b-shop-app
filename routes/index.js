@@ -7,7 +7,7 @@ var shopifyService = require("../services/shopifyServices");
 router.get("/", async function (req, res, next) {
   res.render("index", { title: "B2B APP DASHBOARD" });
 });
-router.get("/about", async (req, res) => {
+router.get("/rules/create", async (req, res) => {
   try {
     const products = await shopifyService.fetchAllProducts(); // Fetch products
 

@@ -10,7 +10,7 @@ html(lang="en")
   body
     header
       div.button-container
-        a.back-button(href="/") Back
+        a.back-button(href="/home") Back
         form(action="/logout" method="POST" class="logout-form")
           button(type="submit" class="btn logout-buttons") Logout
       h1.class-about Discount Details
@@ -22,12 +22,12 @@ html(lang="en")
             label.form-label(for="select1") Products
             select.form-select(name="products-dropdown" id="products-dropdown")
                 option(value="" disabled selected) Select a Product
-                option(value="all") All Products
+                option(value="all" data-title="all" data-product="true") All Products
                 each product in products
-                    optgroup(label=product.title)
+                    //- optgroup(label=product.title)
                     option(value=product.id data-title=product.title data-variant=product.title data-product="true" data-price=product.variants[0].price)= `${product.title} All Variants`
-                    each variant in product.variants
-                        option(value=variant.id data-product=product.title data-title=variant.title data-price=variant.price)= `${variant.title} - $${variant.price}`
+                    //- each variant in product.variants
+                    //-     option(value=variant.id data-product=product.title data-title=variant.title data-price=variant.price)= `${variant.title} - $${variant.price}`
 
             script.
                 // Handle dropdown selection

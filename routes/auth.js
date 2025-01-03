@@ -72,7 +72,7 @@ router.post("/signin", async (req, res) => {
     req.session.user = user;
 
     // Redirect to home page
-    res.redirect("/");
+    res.redirect("/home");
   } catch (error) {
     console.error("Error during signin:", error.message);
     res.status(500).render("signin", {

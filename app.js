@@ -56,7 +56,7 @@ app.use("/", authRouter); // Authentication routes
 // Protected routes (Authentication required)
 
 app.use("/shopify", priceRouter);
-app.use("/", indexRouter);
+app.use("/home", ensureAuthenticated, indexRouter);
 app.use("/customer", ensureAuthenticated, profileRouter);
 app.use("/profile", profileViewRouter);
 app.use("/users", ensureAuthenticated, usersRouter);

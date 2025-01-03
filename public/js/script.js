@@ -124,6 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let productTitle = selectedOption.dataset.title;
         let variantTitle = selectedOption.dataset.product;
 
+        if (variantTitle == "true") {
+          variantTitle = "Discount Code";
+        }
         let params = {};
         let ruleTitle = productTitle;
         if (productTitle != variantTitle) {
@@ -152,6 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           params["product_id_list"] = [];
           params["product_variant_list"] = [product];
+        }
+        if (productTitle != "all") {
+          params["product_id_list"] = [];
+          params["product_variant_list"] = [];
         }
 
         let code = generateRandomString(8);
