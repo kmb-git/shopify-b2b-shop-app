@@ -95,6 +95,62 @@ const shopifyAxios = axios.create({
   },
 });
 
+exports.createFixedDiscountRule = async (params) => {
+  try {
+    const customerId = params.customerId; // Replace with the actual customer ID
+    const discountValue = -params.value; // Replace with your fixed discount value
+
+    // Create the price rule
+    const priceRuleData = {
+      price_rule: {
+        title: "Fixed Discount for Specific Customer",
+        target_type: "line_item",
+        target_selection: "all",
+        allocation_method: "across",
+        value_type: "fixed_amount",
+        value: discountValue, // Fixed discount amount
+        customer_selection: "prerequisite",
+        prerequisite_customer_ids: [customerId], // Specific customer ID
+        usage_limit: 1, // Limit to one use
+        starts_at: new Date().toISOString(), // Start time
+        ends_at: null, // No end time
+      },
+    };
+
+    const priceRuleResponse = await shopifyAxios.post(
+      "/price_rules.json",
+      priceRuleData
+    );
+
+    const priceRule = priceRuleResponse.data.price_rule;
+    console.log("Price Rule Created:", priceRule);
+
+    // Create the discount code associated with the price rule
+    const discountCodeData = {
+      discount_code: {
+        code: params["code"], // Replace with your desired discount code
+      },
+    };
+
+    const discountCodeResponse = await shopifyAxios.post(
+      `/price_rules/${priceRule.id}/discount_codes.json`,
+      discountCodeData
+    );
+
+    return discountCodeResponse;
+    console.log(
+      "Discount Code Created:",
+      discountCodeResponse.data.discount_code
+    );
+  } catch (error) {
+    console.error(
+      "Error creating price rule or discount code:",
+      error.response?.data || error.message
+    );
+    return error;
+  }
+};
+
 exports.createPriceRule = async (params) => {
   try {
     // Step 1: Create a Price Rule
