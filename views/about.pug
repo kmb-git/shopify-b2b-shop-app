@@ -55,25 +55,7 @@ html(lang="en")
           div.column
             label.form-label(for="numberField") Discount
             input.form-input(type="number" id="numberField" name="numberField" placeholder="Enter a number")
-            script.
-              document.getElementById('numberField').addEventListener('change', function() {
-                    const selectedValue = this.value;
-                    let type = this.closest('.form-row').querySelector("#select2").value;
-                    let priceSelect = this.closest('.form-row').querySelector("#products-dropdown")
-
-                    let price = priceSelect.querySelectorAll("option")[priceSelect.selectedIndex].dataset.price;
-                    
-                    if(type == "percentage"){
-                      if(selectedValue > 100){
-                        this.value = 100;
-                      }
-                    } else {
-                      if(selectedValue > price){
-                        this.value = price;
-                      }
-                    }
-                });
-
+           
     footer
       div.row
         button.submit-button(type="button" id="add-more-button") Add More

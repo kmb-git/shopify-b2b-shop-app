@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  formFieldsContainer.addEventListener("input", (event) => {
+  formFieldsContainer.addEventListener("change", (event) => {
     if (event.target.name === "numberField") {
       const selectedValue = event.target.value;
       const type = event.target
@@ -78,10 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (type === "percentage") {
         if (selectedValue > 100) {
+          console.log("Price Adjust percentage done");
           event.target.value = 100;
         }
       } else {
-        if (selectedValue > price) {
+        if (parseFloat(selectedValue) > parseFloat(price)) {
+          console.log("Price Adjust done");
           event.target.value = price;
         }
       }
@@ -156,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
           params["product_id_list"] = [];
           params["product_variant_list"] = [product];
         }
-        if (productTitle != "all") {
+        if (productTitle == "all") {
           params["product_id_list"] = [];
           params["product_variant_list"] = [];
         }
