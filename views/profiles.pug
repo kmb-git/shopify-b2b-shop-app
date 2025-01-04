@@ -42,7 +42,10 @@ html(lang="en")
                 else
                   span.badge.bg-danger Suspended
               td
-                form(action=`/${profile._id}/approve` method="POST" style="display:inline-block")
-                  button.btn.btn-success.btn-sm(type="submit") Approve
-                form(action=`/${profile._id}/delete` method="POST" style="display:inline-block")
-                  button.btn.btn-danger.btn-sm(type="submit") Delete
+                if profile.account_status != "active"
+                  form(action=`/home/customer/${profile._id}/approve` method="POST" style="display:inline-block")
+                    button.btn.btn-success.btn-sm(type="submit") Approve
+                  form(action=`/home/customer/${profile._id}/delete` method="POST" style="display:inline-block")
+                    button.btn.btn-danger.btn-sm(type="submit") Delete
+                else 
+                  span ACCOUNT ALREADY GENERATED

@@ -58,7 +58,7 @@ app.use("/", authRouter); // Authentication routes
 app.use("/shopify", priceRouter);
 app.use("/home", ensureAuthenticated, indexRouter);
 app.use("/customer", profileRouter);
-app.use("/profile", profileViewRouter);
+app.use("/home/customer", ensureAuthenticated, profileViewRouter);
 app.use("/users", ensureAuthenticated, usersRouter);
 app.use("/discounts", discountRoutes); // Discount routes
 app.use("/list", ensureAuthenticated, listRouter);

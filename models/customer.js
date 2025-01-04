@@ -81,6 +81,10 @@ const customProfilesSchema = new mongoose.Schema(
       enum: ["active", "inactive", "suspended"], // Allowed values
       default: "inactive", // Default status
     },
+    shopifyId: {
+      type: String,
+      required: false,
+    },
     agree_terms_of_service: {
       type: Boolean,
       required: true, // Mandatory field
@@ -92,7 +96,7 @@ const customProfilesSchema = new mongoose.Schema(
       },
     },
   },
-  { timestamps: true } 
+  { timestamps: true }
 );
 
 // Create the Custom Profiles Model

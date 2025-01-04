@@ -3,7 +3,7 @@ const router = express.Router();
 const customProfileController = require("../controller/customController");
 
 // Route to view all profiles
-router.get("/", customProfileController.getAllProfiles);
+router.get("/list", customProfileController.getAllProfiles);
 
 // Route to approve a profile
 router.post("/:id/approve", customProfileController.approveProfile);

@@ -209,5 +209,67 @@ exports.createPriceRule = async (params) => {
   }
 };
 
+/**
+ * Create a new customer account without a password, add a wholesale tag,
+ * and send an account activation email.
+ * @param {Object} params - Customer details
+ * @param {string} params.firstName - Customer's first name
+ * @param {string} params.lastName - Customer's last name
+ * @param {string} params.email - Customer's email address
+ * @returns {Promise<Object>} Created customer data
+ */
+exports.createCustomerAccount = async (params) => {
+  try {
+    // Customer data
+    const customerData = {
+      customer: {
+        first_name: params.firstName,
+        last_name: params.lastName,
+        email: params.email,
+        tags: "wholesale", // Add the wholesale tag
+        send_email_invite: true, // Send account activation email
+        phone: params.phone || null,
+        note: params.notes || null,
+        company: params.company || null,
+        tax_exemptions: params.taxNumber ? [params.taxNumber] : [], // Example of using tax numbers
+        addresses: params.address
+          ? [
+              {
+                address1: params.address.address1 || null,
+                address2: params.address.address2 || null,
+                city: params.address.city || null,
+                province: params.address.province || null,
+                zip: params.address.zip || null,
+                country: params.address.country || null,
+                phone: params.phone || null, // Include phone in the address if valid
+              },
+            ]
+          : [],
+        metafields: params.website
+          ? [
+              {
+                namespace: "customer_info",
+                key: "website",
+                value: params.website,
+                value_type: "string",
+              },
+            ]
+          : [],
+      },
+    };
+
+    // Create the customer
+    const response = await shopifyAxios.post("/customers.json", customerData);
+
+    console.log("Customer Created Successfully:", response.data.customer);
+    return response.data.customer;
+  } catch (error) {
+    console.error(
+      "Error creating customer:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
 // Execute the function
 // createPriceRule();
