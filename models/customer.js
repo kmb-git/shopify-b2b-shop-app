@@ -30,7 +30,7 @@ const customProfilesSchema = new mongoose.Schema(
     },
     state: {
       type: String,
-      required: true,
+      required: false,
     },
     country: {
       type: String,
@@ -39,14 +39,16 @@ const customProfilesSchema = new mongoose.Schema(
     city: {
       type: String,
       trim: true,
+      required: false,
     },
     phone: {
       type: String,
-      required: true,
+      required: false,
     },
     tax: {
       type: String,
       trim: true,
+      required: false,
     },
     address1: {
       type: String,
@@ -55,17 +57,18 @@ const customProfilesSchema = new mongoose.Schema(
     },
     address2: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
 
     website: {
       type: String,
       trim: true,
+      required: false,
     },
     zip: {
       type: String,
-      required: true,
+      required: false,
     },
     country: {
       type: String,
@@ -75,6 +78,7 @@ const customProfilesSchema = new mongoose.Schema(
     note: {
       type: String, // Stores multi-line text content
       trim: true,
+      required: false,
     },
     account_status: {
       type: String,
