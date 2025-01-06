@@ -218,20 +218,27 @@ exports.createPriceRule = async (params) => {
  * @param {string} params.email - Customer's email address
  * @returns {Promise<Object>} Created customer data
  */
-exports.createCustomerAccount = async (params) => {
+exports.createOrUpdateCustomerAccount = async (params) => {
   try {
-    // Customer data
+    // Customer search query
+    const searchQuery = `/customers/search.json?query=email:${params.email}`;
+
+    // Search for existing customer by email
+    const searchResponse = await shopifyAxios.get(searchQuery);
+    const existingCustomer = searchResponse.data.customers?.[0]; // Assume the first match is the customer
+
+    // Prepare customer data
     const customerData = {
       customer: {
         first_name: params.firstName,
         last_name: params.lastName,
         email: params.email,
         tags: "wholesale", // Add the wholesale tag
-        send_email_invite: true, // Send account activation email
+        send_email_invite: true, // Send account activation email for new customer
         phone: params.phone || null,
         note: params.notes || null,
         company: params.company || null,
-        tax_exemptions: params.taxNumber ? [params.taxNumber] : [], // Example of using tax numbers
+        tax_exemptions: params.taxNumber ? [params.taxNumber] : [],
         addresses: params.address
           ? [
               {
@@ -241,7 +248,7 @@ exports.createCustomerAccount = async (params) => {
                 province: params.address.province || null,
                 zip: params.address.zip || null,
                 country: params.address.country || null,
-                phone: params.phone || null, // Include phone in the address if valid
+                phone: params.phone || null,
               },
             ]
           : [],
@@ -258,14 +265,36 @@ exports.createCustomerAccount = async (params) => {
       },
     };
 
-    // Create the customer
-    const response = await shopifyAxios.post("/customers.json", customerData);
+    if (existingCustomer) {
+      // Update existing customer
+      const updateCustomerUrl = `/customers/${existingCustomer.id}.json`;
 
-    console.log("Customer Created Successfully:", response.data.customer);
-    return response.data.customer;
+      const updateResponse = await shopifyAxios.put(
+        updateCustomerUrl,
+        customerData
+      );
+      console.log(
+        "Customer Updated Successfully:",
+        updateResponse.data.customer
+      );
+      return updateResponse.data.customer;
+    } else {
+      // Create new customer
+      const createCustomerUrl = "/customers.json";
+
+      const createResponse = await shopifyAxios.post(
+        createCustomerUrl,
+        customerData
+      );
+      console.log(
+        "Customer Created Successfully:",
+        createResponse.data.customer
+      );
+      return createResponse.data.customer;
+    }
   } catch (error) {
     console.error(
-      "Error creating customer:",
+      "Error in creating or updating customer:",
       error.response?.data || error.message
     );
     throw error;
