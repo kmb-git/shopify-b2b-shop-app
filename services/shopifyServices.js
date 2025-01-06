@@ -171,7 +171,7 @@ exports.createPriceRule = async (params) => {
         starts_at: new Date().toISOString(),
       },
     };
-    // console.log(priceRuleData);
+    console.log(priceRuleData);
 
     // const priceRuleGet = await shopifyAxios.get("/price_rules.json");
     // console.log(priceRuleGet);

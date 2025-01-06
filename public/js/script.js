@@ -95,12 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
     discountAmount
   ) {
     const discountPercentage = (discountAmount / originalPrice) * 100;
-    return discountPercentage.toFixed(2); // Returns the percentage rounded to two decimal places
+    return discountPercentage; // Returns the percentage rounded to two decimal places
   }
   function calculateDiscountPercentage(originalPrice, discountedPrice) {
     const discountPercentage =
       ((originalPrice - discountedPrice) / originalPrice) * 100;
-    return discountPercentage.toFixed(2); // Returns the percentage rounded to two decimal places
+    return discountPercentage; // Returns the percentage rounded to two decimal places
   }
   // Submit Button Functionality
   submitButton.addEventListener("click", () => {
@@ -158,7 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
             discount
           );
 
-          params["value"] = discountInpercantge;
+          params["type"] = "fixed_amount";
+          // params["value"] = discountInpercantge;
+          params["value"] = discount;
         } else if (discountType == "fixed amount") {
           let amount = selectedOption.dataset.price;
 
@@ -168,8 +170,11 @@ document.addEventListener("DOMContentLoaded", () => {
             amount,
             discount
           );
+          // params["value"] = discountInpercantge;
 
-          params["value"] = discountInpercantge;
+          params["type"] = "fixed_amount";
+
+          params["value"] = parseFloat(amount) - parseFloat(discount);
         }
 
         if (!isVariant) {
@@ -188,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         params["code"] = code;
 
-        debugger;
+        // debugger;
         setTimeout(() => {
           const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
