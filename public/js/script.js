@@ -188,12 +188,17 @@ document.addEventListener("DOMContentLoaded", () => {
           params["product_id_list"] = [];
           params["product_variant_list"] = [];
         }
+        let code_ = productTitle
+          .toLowerCase()
+          .replaceAll(" ", "-")
+          .replaceAll(".", "");
 
+        code_ = "B2B-" + code_ + "-" + discount;
         let code = generateRandomString(8);
 
-        params["code"] = code;
+        params["code"] = code_;
 
-        // debugger;
+        debugger;
         setTimeout(() => {
           const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
@@ -214,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         formData.push({
           product,
-          discountCode: code,
+          discountCode: code_,
           discountType,
           discount,
           isVariant,

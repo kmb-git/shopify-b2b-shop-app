@@ -114,6 +114,7 @@ exports.createFixedDiscountRule = async (params) => {
         usage_limit: 1, // Limit to one use
         starts_at: new Date().toISOString(), // Start time
         ends_at: null, // No end time
+        once_per_order: false,
       },
     };
 
@@ -163,6 +164,7 @@ exports.createPriceRule = async (params) => {
         value_type: params.type,
         value: "-" + params.value, // 15% Discount
         customer_selection: "prerequisite",
+        once_per_order: false,
         customer_segment_prerequisite_ids: ["1095860126033"],
         // prerequisite_customer_segments: ["1032241742161"],
         // prerequisite_customer_ids: [8512205259089],
